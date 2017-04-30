@@ -1,8 +1,9 @@
 import sqlite3
+from pricealerts import app
 
 
 class Database(object):
-    DATABASE = '/var/www/pricealerts/pricealerts/database/database.db'
+    DATABASE = app.config['DATABASE_FILE']
     CONN = None
 
     @staticmethod

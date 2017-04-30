@@ -11,7 +11,6 @@ user_blueprint = Blueprint('users', __name__)
 @user_blueprint.route('/login', methods=['GET', 'POST'])
 def login_user():
     if request.method == 'POST':
-        # Check login is valid
         email = request.form['email']
         password = request.form['password']
 
@@ -28,7 +27,6 @@ def login_user():
 @user_blueprint.route('/register', methods=['GET', 'POST'])
 def register_user():
     if request.method == 'POST':
-        # Check login is valid
         email = request.form['email']
         password = request.form['password']
 
@@ -53,7 +51,7 @@ def user_alerts():
 @user_blueprint.route('/logout')
 def logout_user():
     session['email'] = None
-    return redirect(url_for('.home'))
+    return redirect(url_for('home'))
 
 
 @user_blueprint.route('/check_alerts/<string:user_id>')
