@@ -5,9 +5,9 @@ TO DO:
 - Add a couple more stores
 - Add Cron jobs to check prices and send emails
 - Add support for different currencies
-- Improve the error message after a failed login attempt
-- Change the navigation bar to not use rounded corners
-- Add a footer bar
+- Improve the error message after a failed login attempt [done]
+- Change the navigation bar to not use rounded corners [done]
+- Add a footer bar [done]
 
 BUGS:
 

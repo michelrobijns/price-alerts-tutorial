@@ -10,6 +10,8 @@ user_blueprint = Blueprint('users', __name__)
 
 @user_blueprint.route('/login', methods=['GET', 'POST'])
 def login_user():
+    show_error = False
+
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -19,13 +21,16 @@ def login_user():
                 session['email'] = email
                 return redirect(url_for('.user_alerts'))
         except UserErrors.UserError as e:
-            return e.message
+            show_error = True
+            # return e.message
 
-    return render_template('users/login.html')  # Send the user an error if their login was invalid
+    return render_template('users/login.html', show_error=show_error)
 
 
 @user_blueprint.route('/register', methods=['GET', 'POST'])
 def register_user():
+    show_error = False
+
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -35,9 +40,10 @@ def register_user():
                 session['email'] = email
                 return redirect(url_for('.user_alerts'))
         except UserErrors.UserError as e:
-            return e.message
+            show_error = True
+            # return e.message
 
-    return render_template('users/register.html')  # Send the user an error if their login was invalid
+    return render_template('users/register.html', show_error=show_error)
 
 
 @user_blueprint.route('/alerts')
