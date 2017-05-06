@@ -63,7 +63,7 @@ class Store(object):
             if len(stores) == 1:
                 return stores[0]
 
-        raise StoreErrors.StoreNotFoundException("The URL prefix didn't yield any results")
+        # raise StoreErrors.StoreNotFoundException("The URL prefix didn't yield any results")
 
     @classmethod
     def all(cls):

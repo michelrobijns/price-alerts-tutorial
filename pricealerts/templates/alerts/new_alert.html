@@ -5,6 +5,13 @@
     </div>
     <div class="form-size">
         <form method="post">
+            {% if show_error == true %}
+            <div class="alert alert-danger" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Something went wrong. Did you enter an unsupported store?
+            </div>
+            {% endif %}
             <div class="form-group">
                 <label for="name">Alert/Item Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Name">

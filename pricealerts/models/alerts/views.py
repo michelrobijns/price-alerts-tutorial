@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, session, url_for, redirect
 from pricealerts.models.alerts.alert import Alert
 from pricealerts.models.items.item import Item
+from pricealerts.models.stores.store import Store
 import pricealerts.models.users.decorators as user_decorators
 
 
@@ -10,21 +11,26 @@ alert_blueprint = Blueprint('alerts', __name__)
 @alert_blueprint.route('/new', methods=['GET', 'POST'])
 @user_decorators.requires_login
 def create_alert():
+    show_error = False
+
     if request.method == 'POST':
-        name = request.form['name']
-        url = request.form['url']
-        price_limit = float(request.form['price-limit'])
+        try:
+            name = request.form['name']
+            url = request.form['url']
+            price_limit = float(request.form['price-limit'])
 
-        item = Item(name, url)
-        item.save_to_db()
+            item = Item(name, url)
+            item.save_to_db()
 
-        alert = Alert(session['email'], price_limit, item._id)
-        alert.load_item_price()  # This already saves to the database, watch lecture 115 because there is some mistake
+            alert = Alert(session['email'], price_limit, item._id)
+            alert.load_item_price()  # This already saves to the database, watch lecture 115 because there is some mistake
 
-        return redirect(url_for('users.user_alerts'))
+            return redirect(url_for('users.user_alerts'))
+        except:
+            show_error = True
 
     # If there is a GET request
-    return render_template('alerts/new_alert.html')
+    return render_template('alerts/new_alert.html', show_error=show_error)
 
 
 @alert_blueprint.route('/edit/<string:alert_id>', methods=['GET', 'POST'])
