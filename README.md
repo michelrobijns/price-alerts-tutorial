@@ -1,10 +1,9 @@
 TO DO:
 
-- Move all database IO to the Database class
 - Sign up for SendGrid and replace Mailgun
-- Add a couple more stores
+- Add a couple more stores [done]
 - Add Cron jobs to check prices and send emails
-- Add support for different currencies
+- Add support for different currencies [done]
 - Improve the error message after a failed login attempt [done]
 - Change the navigation bar to not use rounded corners [done]
 - Add a footer bar [done]

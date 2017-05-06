@@ -27,10 +27,11 @@ class Item(object):
         element = soup.find(self.tag_name, self.query)
         string_price = element.text.strip()
 
-        pattern = re.compile("(\d+.\d+)")
+        pattern = re.compile("(\d+[.,]\d+)")
         match = pattern.search(string_price)
 
-        self.price = float(match.group())
+        # Replace commas with periods and convert the price string to a float
+        self.price = float(match.group().replace(",", "."))
         return self.price
 
     def save_to_db(self):

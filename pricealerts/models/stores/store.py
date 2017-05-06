@@ -47,9 +47,8 @@ class Store(object):
     def get_by_url_prefix(cls, url_prefix):
         cursor = Database.CONN.execute('select * from {} where url_prefix like ?'.format(StoreConstants.COLLECTION),
                                        ('%' + str(url_prefix) + '%',))
-        store_data = cursor.fetchone()
-        if store_data is not None:
-            return cls(*store_data)
+        store_data = cursor.fetchall()
+        return [cls(*store) for store in store_data]
 
     @classmethod
     def find_by_url(cls, url):
@@ -59,11 +58,12 @@ class Store(object):
         :return: a Store, or raises a StoreNotFoundException if no store matches the url
         """
         for i in range(0, len(url)):
-            try:
-                store = cls.get_by_url_prefix(url[:i+1])
-                return store
-            except:
-                raise StoreErrors.StoreNotFoundException("The URL prefix didn't yield any results")
+            stores = cls.get_by_url_prefix(url[:i+1])
+
+            if len(stores) == 1:
+                return stores[0]
+
+        raise StoreErrors.StoreNotFoundException("The URL prefix didn't yield any results")
 
     @classmethod
     def all(cls):

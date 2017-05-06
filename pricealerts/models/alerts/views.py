@@ -21,6 +21,8 @@ def create_alert():
         alert = Alert(session['email'], price_limit, item._id)
         alert.load_item_price()  # This already saves to the database, watch lecture 115 because there is some mistake
 
+        return redirect(url_for('users.user_alerts'))
+
     # If there is a GET request
     return render_template('alerts/new_alert.html')
 
